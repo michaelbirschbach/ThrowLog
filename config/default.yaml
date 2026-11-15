@@ -10,10 +10,30 @@ pose:
   model: yolo11n-pose.pt
   device: mps
   tracker: bytetrack
+  # 1280 is the smallest size that still sees the distant partner in catch_short.
+  imgsz: 1280
+  confidence: 0.25
+  keypoint_confidence: 0.3
+  # Every frame. Skipping frames split the close thrower when the arm moved.
+  track_every_n_frames: 1
 
 throws:
+  # Null uses a relative peak test instead of an absolute speed cutoff.
   wrist_speed_min: null
   min_gap_frames: 15
+  smooth_frames: 3
+  # A peak must be this many times the track's median wrist speed.
+  peak_factor: 2.5
+  # Ignore tracks shorter than this. They are ID fragments, not a person.
+  min_track_frames: 30
+
+identity:
+  # Tracks within this height ratio can be the same person.
+  height_ratio_max: 1.5
+  # Overlapping boxes at least this similar are one person, not two.
+  overlap_iou_min: 0.25
+  # A detection gap shorter than this still continues the same person.
+  max_gap_frames: 60
 
 review:
   confidence_threshold: 0.5

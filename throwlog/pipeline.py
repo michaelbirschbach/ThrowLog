@@ -56,11 +56,25 @@ def run_session(session_dir: Path, config: AppConfig, through: str | None = None
 
 
 def next_unimplemented(session_dir: Path, config: AppConfig) -> str:
-    """Return the name of the first stage that is not implemented."""
-    for name, run in STAGES:
-        try:
-            run(session_dir, config)
-        except StageNotReady:
+    """Return the name of the first stage that is not implemented.
+
+    This does not run the stage. Implemented stages stay marked on the module.
+    """
+    del session_dir, config
+    modules = {
+        "ingest": ingest,
+        "track": track,
+        "pose": pose,
+        "throws": throws,
+        "ball": ball,
+        "pairing": pairing,
+        "identity": identity,
+        "geometry": geometry,
+        "velocity": velocity,
+        "confidence": confidence,
+    }
+    for name, _run in STAGES:
+        if not getattr(modules[name], "IMPLEMENTED", False):
             return name
     return ""
 

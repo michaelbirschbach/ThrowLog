@@ -7,7 +7,7 @@ ThrowLog turns practice video into a per-throw workload log for the Red Sox Base
 - `config/default.yaml` holds every threshold. Stage code reads that file.
 - `throwlog/schemas.py` is the per-throw record and the session summary.
 - `throwlog/export.py` writes CSV and JSON only after a record passes the schema.
-- `throwlog/pipeline.py` lists the stages. The first call stops at `ingest`, which is not built yet.
+- `throwlog/pipeline.py` lists the stages. Ingest is implemented. Tracking is next.
 - `data/raw/` is gitignored. Local video stays on this machine.
 - `data/manifests/` is tracked and describes those clips without storing the pixels.
 
@@ -22,7 +22,9 @@ ThrowLog turns practice video into a per-throw workload log for the Red Sox Base
 | Stored frames | 1280 by 720, H.264, with a rotation ingest must apply |
 | Timing | Playback time of the slow-motion export. Not confirmed as real time. |
 
-This clip is for wiring up ingest and pose. The application proof of concept still needs a separate public clip of two players playing catch, with a hand count of the throws. Do not commit either video.
+This clip is for wiring up ingest and pose.
+
+`data/raw/catch_short.mp4` is a two-person catch short, already portrait at 2160 by 3840, about 18.8 seconds at 29.97 fps. It is footage from Cinematic Catch, “Playing Catch Is The Best!” Ingest it with `throwlog ingest catch_short`. Do not commit the file, and do not publish a GIF made from it.
 
 ## Setup
 
@@ -52,6 +54,8 @@ The proof of concept is meant to run on this MacBook Pro (M1 Pro, 16 GB) through
 throwlog stages    # stage order and which one is next
 throwlog check     # load config and print the local clip
 throwlog session img_0138
+throwlog ingest img_0138
+throwlog run catch_short
 ```
 
 `python app/streamlit_app.py`, `python tools/label_tool.py`, and `python eval/run_eval.py` exit with a short explanation. Those tools are scheduled for after selection.

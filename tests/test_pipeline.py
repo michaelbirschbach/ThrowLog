@@ -11,8 +11,8 @@ def test_stage_order_starts_at_ingest():
     assert "export" not in stage_names()
 
 
-def test_first_stage_is_unimplemented():
-    assert next_unimplemented(Path("."), load_config()) == "ingest"
+def test_next_stage_after_throws_is_ball():
+    assert next_unimplemented(Path("."), load_config()) == "ball"
 
 
 def test_session_folder_is_created(tmp_path, monkeypatch):
