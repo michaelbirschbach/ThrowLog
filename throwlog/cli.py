@@ -9,6 +9,8 @@ import yaml
 
 from throwlog import __version__
 from throwlog.config import DEFAULT_CONFIG, load_config
+from throwlog.ball import run as run_ball
+from throwlog.pairing import run as run_pairing
 from throwlog.identity import run as run_identity
 from throwlog.ingest import run as run_ingest
 from throwlog.paths import MANIFESTS, ensure_session
@@ -75,6 +77,8 @@ def _cmd_run(session_id: str) -> int:
     run_pose(folder, config)
     run_throws(folder, config)
     run_identity(folder, config)
+    run_ball(folder, config)
+    run_pairing(folder, config)
     _print_counts(folder)
     return 0
 
@@ -94,6 +98,24 @@ def _print_counts(folder) -> None:
                 f"player {player['player_id']} tracks {player['track_ids']} "
                 f"throws {player['throw_count']}: {times}"
             )
+    flights = folder / "ball" / "flights.json"
+    if flights.is_file():
+        ball = json.loads(flights.read_text())
+        print(f"ball flights {ball['flight_count']} confirmed throws {ball['confirmed_count']}")
+        for row in ball["throws"]:
+            if not row.get("player_id"):
+                continue
+            state = "ball" if row["confirmed"] else "no ball"
+            print(f"  {row['player_id']} {row['timestamp_s']}s {state}")
+    pairs = folder / "pairing" / "pairs.json"
+    if pairs.is_file():
+        paired = json.loads(pairs.read_text())
+        print(f"catch {paired['catch_count']} wall {paired['wall_count']} unpaired {paired['unpaired_count']}")
+        for row in paired["pairs"]:
+            if row["drill_type"] is None:
+                continue
+            partner = row["partner_id"] or "wall"
+            print(f"  {row['player_id']} {row['timestamp_s']}s {row['drill_type']} -> {partner}")
 
 
 def main() -> None:

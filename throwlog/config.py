@@ -41,6 +41,33 @@ class IdentityConfig(BaseModel):
     max_gap_frames: int = Field(ge=0)
 
 
+class BallConfig(BaseModel):
+    detect_width: int = Field(ge=32)
+    sat_max: int = Field(ge=0, le=255)
+    value_min: int = Field(ge=0, le=255)
+    background_value_max: int = Field(ge=0, le=255)
+    contrast_min: int = Field(ge=0)
+    area_min: int = Field(ge=1)
+    area_max: int = Field(ge=1)
+    close_sat_max: int = Field(ge=0, le=255)
+    close_value_min: int = Field(ge=0, le=255)
+    close_area_min: int = Field(ge=1)
+    close_area_max: int = Field(ge=1)
+    max_jump_px: float = Field(gt=0)
+    max_gap_frames: int = Field(ge=0)
+    min_track_frames: int = Field(ge=1)
+    min_travel_px: float = Field(ge=0)
+    min_straightness: float = Field(ge=0, le=1)
+    static_cell_px: int = Field(ge=1)
+    static_cell_hits: int = Field(ge=1)
+    confirm_window_frames: int = Field(ge=0)
+
+
+class PairingConfig(BaseModel):
+    presence_frames: int = Field(ge=0)
+    approach_px: float = Field(ge=0)
+
+
 class ReviewConfig(BaseModel):
     confidence_threshold: float = Field(ge=0, le=1)
 
@@ -50,6 +77,8 @@ class AppConfig(BaseModel):
     pose: PoseConfig
     throws: ThrowConfig
     identity: IdentityConfig
+    ball: BallConfig
+    pairing: PairingConfig
     review: ReviewConfig
     ball_colors: dict[str, str] = Field(default_factory=dict)
 

@@ -35,8 +35,37 @@ identity:
   # A detection gap shorter than this still continues the same person.
   max_gap_frames: 60
 
+pairing:
+  # How far around the throw to look for the other person.
+  presence_frames: 8
+  # With several other people, the ball must get at least this much closer to the receiver.
+  approach_px: 30
+
 review:
   confidence_threshold: 0.5
 
-# Color name to the club's ball label. Empty until kickoff.
+# Measured on catch_short at detect_width. A white baseball on the barn,
+# plus the same ball when it is still large and in the hand.
+ball:
+  detect_width: 1080
+  sat_max: 30
+  value_min: 175
+  background_value_max: 110
+  contrast_min: 50
+  area_min: 15
+  area_max: 250
+  close_sat_max: 12
+  close_value_min: 200
+  close_area_min: 400
+  close_area_max: 3200
+  max_jump_px: 80
+  max_gap_frames: 4
+  min_track_frames: 4
+  min_travel_px: 30
+  min_straightness: 0.55
+  static_cell_px: 12
+  static_cell_hits: 12
+  confirm_window_frames: 12
+
+# Color name to the club's ball label. Empty until a second ball color is filmed.
 ball_colors: {}
