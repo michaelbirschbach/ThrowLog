@@ -1,0 +1,39 @@
+[project]
+name = "throwlog"
+version = "0.1.0"
+description = "Video pipeline that turns practice footage into a per-throw workload log."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { file = "LICENSE" }
+authors = [{ name = "Michael Birschbach" }]
+dependencies = [
+  "pydantic>=2.6",
+  "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+vision = [
+  "ultralytics>=8.3",
+  "opencv-python-headless>=4.10",
+  "numpy>=1.26",
+]
+model = [
+  "pandas>=2.2",
+  "scikit-learn>=1.5",
+  "lightgbm>=4.5",
+]
+app = ["streamlit>=1.40"]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+throwlog = "throwlog.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["throwlog*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

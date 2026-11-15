@@ -1,0 +1,23 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.env
+dist/
+build/
+*.egg-info/
+
+# Model weights and local video. Manifests in data/manifests stay tracked.
+*.pt
+*.onnx
+*.engine
+data/raw/*
+!data/raw/.gitkeep
+data/sessions/*
+!data/sessions/.gitkeep
+data/labels/*
+!data/labels/.gitkeep
+
+.DS_Store

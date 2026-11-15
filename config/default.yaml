@@ -1,0 +1,22 @@
+# Thresholds live here. Stage code reads this file and does not hard-code them.
+# Null means the value is not set yet. Do not invent a tuned number before a clip has been measured.
+
+ingest:
+  sample_every_n_frames: 2
+  full_rate_window_frames: 15
+
+pose:
+  # Ultralytics pose weights, downloaded on first use. AGPL-3.0.
+  model: yolo11n-pose.pt
+  device: mps
+  tracker: bytetrack
+
+throws:
+  wrist_speed_min: null
+  min_gap_frames: 15
+
+review:
+  confidence_threshold: 0.5
+
+# Color name to the club's ball label. Empty until kickoff.
+ball_colors: {}
