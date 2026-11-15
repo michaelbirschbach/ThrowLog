@@ -16,6 +16,7 @@ vision = [
   "ultralytics>=8.3",
   "opencv-python-headless>=4.10",
   "numpy>=1.26",
+  "lap>=0.5.12",
 ]
 model = [
   "pandas>=2.2",

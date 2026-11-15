@@ -21,11 +21,24 @@ class PoseConfig(BaseModel):
     model: str
     device: str
     tracker: str
+    imgsz: int = Field(ge=32)
+    confidence: float = Field(ge=0, le=1)
+    keypoint_confidence: float = Field(ge=0, le=1)
+    track_every_n_frames: int = Field(ge=1)
 
 
 class ThrowConfig(BaseModel):
     wrist_speed_min: Optional[float] = None
     min_gap_frames: int = Field(ge=1)
+    smooth_frames: int = Field(ge=1)
+    peak_factor: float = Field(gt=0)
+    min_track_frames: int = Field(ge=1)
+
+
+class IdentityConfig(BaseModel):
+    height_ratio_max: float = Field(gt=1)
+    overlap_iou_min: float = Field(ge=0, le=1)
+    max_gap_frames: int = Field(ge=0)
 
 
 class ReviewConfig(BaseModel):
@@ -36,6 +49,7 @@ class AppConfig(BaseModel):
     ingest: IngestConfig
     pose: PoseConfig
     throws: ThrowConfig
+    identity: IdentityConfig
     review: ReviewConfig
     ball_colors: dict[str, str] = Field(default_factory=dict)
 

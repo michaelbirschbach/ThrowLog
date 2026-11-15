@@ -1,0 +1,24 @@
+clip_id: catch_short
+path: data/raw/catch_short.mp4
+tracked_in_git: false
+timing: playback
+role: development
+description: >
+  Two people playing catch, filmed from behind the thrower. Portrait phone
+  video. Local development clip only.
+source:
+  title: Playing Catch Is The Best!
+  channel: Cinematic Catch
+  url: https://www.youtube.com/shorts/ofWop9s2d00
+container:
+  codec: H.264
+  stored_width: 2160
+  stored_height: 3840
+  display_width: 2160
+  display_height: 3840
+  nominal_fps: 29.97
+  duration_s: 18.75
+notes:
+  - The file is already portrait. Orientation metadata is 0, so ingest does not rotate it.
+  - Timestamps are playback time of the short.
+  - The pixels stay in data/raw and the session output stays in data/sessions. Do not commit them, and do not publish a GIF made from this footage.
