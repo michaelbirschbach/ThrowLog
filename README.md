@@ -44,8 +44,6 @@ Install the detector only after Python 3.11 is available:
 pip install -e ".[dev,vision]"
 ```
 
-The pose model is Ultralytics, which is AGPL-3.0. This repository is AGPL-3.0 for that reason. If the challenge rules require the code to stay private, swap the detector before publishing. See the project plan.
-
 The proof of concept is meant to run on this MacBook Pro (M1 Pro, 16 GB) through Metal (`device: mps` in the config). Long club videos, after selection, run on a rented NVIDIA GPU.
 
 ## Commands
